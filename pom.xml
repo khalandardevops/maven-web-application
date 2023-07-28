@@ -35,6 +35,11 @@
                         <name>Mohammad Remote Repo</name>
                         <url>http://52.66.185.16:8081/repository/remote-web-app-repo/</url>
                 </repository>
+		<repository>
+                        <id>nexus</id>
+                        <name>Mohammad Proxy Repo</name>
+                        <url>http://52.66.185.16:8081/repository/proxy-web-app-repo/</url>
+                </repository>
         </repositories>
 
 	<dependencies>
