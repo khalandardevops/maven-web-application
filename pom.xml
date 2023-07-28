@@ -39,11 +39,11 @@
 
 	<dependencies>
 
-		<dependency>
+		<!--<dependency>
   <groupId>shared-log4j</groupId>
   <artifactId>logs</artifactId>
   <version>0.0.1</version>
-</dependency>
+</dependency>-->
 		
 		<dependency>
 			<groupId>org.json</groupId>
