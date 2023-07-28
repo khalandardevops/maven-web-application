@@ -33,17 +33,17 @@
 		<repository>
                         <id>nexus</id>
                         <name>Mohammad Proxy Repo</name>
-                        <url>http://52.66.185.16:8081/repository/proxy-web-app-repo/</url>
+                        <url>http://52.66.185.16:8081/repository/group-web-app-repo/</url>
                 </repository>
         </repositories>
 
 	<dependencies>
 
-		<!--<dependency>
+		<dependency>
   <groupId>shared-log4j</groupId>
   <artifactId>logs</artifactId>
   <version>0.0.1</version>
-</dependency>-->
+</dependency>
 		
 		<dependency>
 			<groupId>org.json</groupId>
