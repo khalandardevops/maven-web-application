@@ -29,21 +29,21 @@
 
 	</properties>
 
-	<repositories>
+	<!--<repositories>
 		<repository>
                         <id>nexus</id>
                         <name>Mohammad Proxy Repo</name>
                         <url>http://52.66.185.16:8081/repository/group-web-app-repo/</url>
                 </repository>
-        </repositories>
+        </repositories>-->
 
 	<dependencies>
 
-		<dependency>
+		<!--<dependency>
   <groupId>shared-log4j</groupId>
   <artifactId>logs</artifactId>
   <version>0.0.1</version>
-</dependency>
+</dependency>-->
 		
 		<dependency>
 			<groupId>org.json</groupId>
