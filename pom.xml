@@ -112,13 +112,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://52.66.185.16:8081/repository/releases-web-app-repo/</url>
+	      <url>http://15.206.158.148:8081/repository/release-idk/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://52.66.185.16:8081/repository/snapshots-web-app-repo/</url>
+	      <url>http://15.206.158.148:8081/repository/snapshots-idk/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
