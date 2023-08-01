@@ -1,0 +1,24 @@
+node{
+	
+	def mavenHome = tool name: 'maven3.9.3', type: 'maven'
+
+	properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')), parameters([choice(choices: ['master', 'DEV', 'QA', 'PROD'], description: 'Select Branch', name: 'Branch'), string(defaultValue: 'Chun-Lee', description: 'Your Name', name: 'Name')]), pipelineTriggers([githubPush()])])
+
+	stage("checkout"){
+	git branch: '${Branch}', url: 'https://github.com/khalandardevops/maven-web-application.git'
+	}
+	stage("Build"){
+	sh "${mavenHome}/bin/mvn clean install"
+	}
+	/*stage("sonar"){
+	sh "${mavenHome}/bin/mvn sonar:sonar"
+	}
+	stage("Copy to Nexus"){
+	sh "${mavenHome}/bin/mvn clean deploy"
+	}*/
+	stage("deploy"){
+	sshagent(['f779813a-2340-4d2a-a717-ea3e2b11990b']) {
+    	sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@15.207.100.88:/home/ec2-user/tomcat/tomcat9/apache-tomcat-9.0.71/webapps/maven-web-application.war"
+		}
+	}
+}
