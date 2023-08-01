@@ -2,7 +2,7 @@ node{
 	
 	def mavenHome = tool name: 'maven3.9.3', type: 'maven'
 
-	properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')), parameters([choice(choices: ['master', 'DEV', 'QA', 'PROD'], description: 'Select Branch', name: 'Branch'), string(defaultValue: 'Chun-Lee', description: 'Your Name', name: 'Name')]), pipelineTriggers([githubPush()])])
+	properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')), string(defaultValue: 'Chun-Lee', description: 'Your Name', name: 'Name')]), pipelineTriggers([githubPush()])])
 
 	stage("checkout"){
 	git branch: '${Branch}', url: 'https://github.com/khalandardevops/maven-web-application.git'
