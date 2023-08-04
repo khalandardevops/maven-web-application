@@ -1,0 +1,43 @@
+node("ubuntu-maven") {
+    
+    def mavenHome = tool name: 'maven3.9.3', type: 'maven'
+    
+	stage("checkout"){
+	git url: 'https://github.com/khalandardevops/maven-web-application.git'
+	}
+	stage("Build"){
+	sh "${mavenHome}/bin/mvn clean install"
+	}
+	stage("Docker Image Build"){
+	    sh "docker rmi -f mohdkhalandar/maven-web-new:${BUILD_NUMBER} || true"
+	    sh "docker build -t mohdkhalandar/maven-web-new:${BUILD_NUMBER} ."
+	}
+	stage("Docker Image Push"){
+	    withCredentials([string(credentialsId: 'Docker-cred', variable: 'Dockerpasswd')]) {
+        sh "docker login -u mohdkhalandar -p ${Dockerpasswd}"
+        sh "docker push mohdkhalandar/maven-web-new:${BUILD_NUMBER}"
+        }
+	}
+	stage("Docker Image Run"){
+	    sshagent(['d5555423-f3d3-411b-aa8f-91c84e1218a3']) {
+	        sh "ssh -o StrictHostKeyChecking=no ec2-user@13.127.25.199 docker stop mavenimage || true"
+	        sh "ssh -o StrictHostKeyChecking=no ec2-user@13.127.25.199 docker rm mavenimage || true"
+	        sh "ssh -o StrictHostKeyChecking=no ec2-user@13.127.25.199 docker rmi -f mohdkhalandar/maven-web-new:${BUILD_NUMBER} || true"
+          sh "ssh -o StrictHostKeyChecking=no ec2-user@13.127.25.199 docker run -d --name mavenimage -p 8081:8080 mohdkhalandar/maven-web-new:${BUILD_NUMBER}"
+        }
+	}
+	/*
+	# to Build Docker Image in other Server
+	stage("Build Docker Image"){
+	    sshagent(['92eaab3b-5cb7-46c5-809c-144c3b3c1e4f']) {
+	        sh 'ssh -o StrictHostKeyChecking=no ubuntu@65.2.182.43 docker rmi -f mohdkhalandar/maven-web-new:${BUILD_NUMBER} '
+            sh 'ssh -o StrictHostKeyChecking=no ubuntu@65.2.182.43 docker build -t mohdkhalandar/maven-web-new:${BUILD_NUMBER} .'
+        }
+	}
+	/*
+	stage("Deploy to Tomcat Server"){
+	    sshagent(['e43d9923-817a-42a2-b807-c0a5d67eb49b']) {
+	        sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.62.2:/home/ec2-user/tomcat/tomcat9/apache-tomcat-9.0.71/webapps"
+		}	
+	}*/
+}
