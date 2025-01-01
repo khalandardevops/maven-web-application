@@ -1,9 +1,5 @@
 pipeline{
 	agent any
-
-	tools {
- 		 maven 'maven3.9.9'
-	}
 	
 	stages{
 		stage('checkout'){
@@ -11,12 +7,12 @@ pipeline{
 				git 'https://github.com/khalandardevops/maven-web-application.git'
 			}
 		}
-		stage('Build'){
+	/*	stage('Build'){
 			steps{
 				sh 'mvn clean install'
 			}
 		}
-	/*	stage('unit-test'){
+		stage('unit-test'){
 			steps{
 				jacoco()
 			}
